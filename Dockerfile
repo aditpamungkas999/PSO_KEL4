@@ -1,25 +1,37 @@
+# Gunakan base image PHP dengan Apache
 FROM php:8.1-apache
 
-# Install PHP extensions dan dependencies tambahan untuk menjalankan spark
+# Install ekstensi PHP & tools dasar
 RUN apt-get update && apt-get install -y \
     unzip \
+    git \
+    zip \
     libzip-dev \
+    libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql mysqli zip mbstring xml \
-    && a2enmod rewrite
+    && docker-php-ext-install mysqli pdo pdo_mysql zip
 
-# Copy source code ke direktori Apache
-COPY . /var/www/html/
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory ke folder project CodeIgniter
-WORKDIR /var/www/html/
+# Copy source code aplikasi
+COPY . /var/www/html
 
-# Set permission agar www-data bisa akses folder
+# Beri hak akses
 RUN chown -R www-data:www-data /var/www/html
 
-# Install Composer (jika perlu, untuk dependency PHP)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# # Aktifkan Apache mod_rewrite
+# RUN a2enmod rewrite
 
-# Expose port 8080 (default php spark serve)
-EXPOSE 8080
+# # Konfigurasi Apache (opsional, jika perlu)
+# COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Jalankan Composer install (opsional)
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Expose port
+EXPOSE 80

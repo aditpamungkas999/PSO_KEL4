@@ -24,25 +24,35 @@ class Database extends Config
     /**
      * The default database connection.
      */
-    public array $default = [
-        'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
-        'DBDriver' => 'MySQLi',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => true,
-        'charset'  => 'utf8',
-        'DBCollat' => 'utf8_general_ci',
-        'swapPre'  => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'failover' => [],
-        'port'     => 3306,
-    ];
+    public array $default;
+
+    public function __construct()
+    {
+        parent::__construct();
+        if (ENVIRONMENT === 'testing') {
+            $this->defaultGroup = 'tests';
+        }
+
+        $this->default = [
+            'DSN'      => '',
+            'hostname' => getenv('DB_HOST') ?: 'localhost',
+            'username' => getenv('DB_USER') ?: 'root',
+            'password' => getenv('DB_PASS') ?: '',
+            'database' => getenv('DB_NAME') ?: 'codeigniter_db',
+            'DBDriver' => 'MySQLi',
+            'DBPrefix' => '',
+            'pConnect' => false,
+            'DBDebug'  => (ENVIRONMENT !== 'production'),
+            'charset'  => 'utf8',
+            'DBCollat' => 'utf8_general_ci',
+            'swapPre'  => '',
+            'encrypt'  => false,
+            'compress' => false,
+            'strictOn' => false,
+            'failover' => [],
+            'port'     => 3306,
+        ];
+    }
 
     /**
      * This database connection is used when
@@ -69,16 +79,4 @@ class Database extends Config
         'foreignKeys' => true,
         'busyTimeout' => 1000,
     ];
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        // Ensure that we always set the database group to 'tests' if
-        // we are currently running an automated test suite, so that
-        // we don't overwrite live data on accident.
-        if (ENVIRONMENT === 'testing') {
-            $this->defaultGroup = 'tests';
-        }
-    }
 }
