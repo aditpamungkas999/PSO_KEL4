@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install mysqli pdo pdo_mysql zip
+    && docker-php-ext-install mysqli pdo pdo_mysql zip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd intl
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -21,16 +23,15 @@ COPY . /var/www/html
 # Beri hak akses
 RUN chown -R www-data:www-data /var/www/html
 
-# # Aktifkan Apache mod_rewrite
-# RUN a2enmod rewrite
+# Aktifkan Apache mod_rewrite
+RUN a2enmod rewrite
 
-# # Konfigurasi Apache (opsional, jika perlu)
-# COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
+# Konfigurasi Apache (opsional, jika perlu)
+COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Jalankan Composer install (opsional)
 # Install Composer (jika perlu, untuk dependency PHP)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # # Jalankan Composer install (opsional)
