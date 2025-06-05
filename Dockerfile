@@ -33,8 +33,8 @@ WORKDIR /var/www/html
 # Jalankan Composer install (opsional)
 # Install Composer (jika perlu, untuk dependency PHP)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-# Jalankan Composer install (opsional)
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# # Jalankan Composer install (opsional)
+# RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Expose port
 EXPOSE 80
