@@ -35,10 +35,10 @@ class Database extends Config
 
         $this->default = [
             'DSN'      => '',
-            'hostname' => getenv('DB_HOST') ?: 'localhost',
-            'username' => getenv('DB_USER') ?: 'root',
-            'password' => getenv('DB_PASS') ?: '',
-            'database' => getenv('DB_NAME') ?: 'codeigniter_db',
+            'hostname' => getenv('database.default.hostname') ?: 'localhost',
+            'username' => getenv('database.default.username') ?: 'root',
+            'password' => getenv('database.default.password') ?: '',
+            'database' => getenv('database.default.database') ?: 'codeigniterdb',
             'DBDriver' => 'MySQLi',
             'DBPrefix' => '',
             'pConnect' => false,
