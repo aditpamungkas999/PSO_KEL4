@@ -1,0 +1,41 @@
+- name: Deploy App to EC2
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install AWS CLI if not present
+      shell: |
+        if ! command -v aws &> /dev/null; then
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+        fi
+      args:
+        executable: /bin/bash
+
+    - name: Login to AWS ECR
+      shell: aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 158340562330.dkr.ecr.ap-southeast-2.amazonaws.com
+      args:
+        executable: /bin/bash
+
+    - name: Pull latest image from ECR
+      shell: docker pull 158340562330.dkr.ecr.ap-southeast-2.amazonaws.com/fppsokelompok4
+      args:
+        executable: /bin/bash
+
+    - name: Stop existing container (if any)
+      shell: docker stop my-app || true
+      ignore_errors: yes
+
+    - name: Remove existing container (if any)
+      shell: docker rm my-app || true
+      ignore_errors: yes
+
+    - name: Run new container
+      shell: docker run -d -p 8080:80 --name my-app 158340562330.dkr.ecr.ap-southeast-2.amazonaws.com/fppsokelompok4:latest
+      args:
+        executable: /bin/bash
+
+    - name: Run composer install inside container
+      shell: docker exec my-app composer install
+      args:
+        executable: /bin/bash

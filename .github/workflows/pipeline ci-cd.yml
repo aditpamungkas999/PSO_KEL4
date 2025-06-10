@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -42,8 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: php-test
     env:
-      AWS_REGION: ap-southeast-2  # Ganti sesuai region
-      ECR_REPOSITORY: fppsokelompok4 # Ganti dengan nama repo di ECR
+      AWS_REGION: ap-southeast-2
+      ECR_REPOSITORY: fppsokelompok4
       IMAGE_NAME: my-app
 
     steps:
@@ -72,3 +72,31 @@ jobs:
       - name: Push image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY
+
+  deploy-to-ec2:
+    runs-on: ubuntu-latest
+    needs: docker-build-and-push
+    env:
+      AWS_REGION: ap-southeast-2
+      ECR_REPOSITORY: fppsokelompok4
+      IMAGE_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-2.amazonaws.com/fppsokelompok4
+      CONTAINER_NAME: my-app
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i "${{ env.EC2_HOST }}," -u ec2-user --private-key ~/.ssh/id_rsa ansible/deploy-playbook.yml
