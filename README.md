@@ -1,15 +1,10 @@
 # Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code
 
-[![Continuous Integration](https://github.com/ikhsan3adi/absensi-sekolah-qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/ikhsan3adi/absensi-sekolah-qr-code/actions/workflows/ci.yml)
-![GitHub Repo stars](https://img.shields.io/github/stars/ikhsan3adi/absensi-sekolah-qr-code?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/ikhsan3adi/absensi-sekolah-qr-code?style=social)
-![GitHub forks](https://img.shields.io/github/forks/ikhsan3adi/absensi-sekolah-qr-code?style=social)
+Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang bertujuan untuk mengotomatisasi proses absensi di lingkungan sekolah menggunakan teknologi QR code. Aplikasi ini dikembangkan dengan menggunakan framework CodeIgniter 4 dan didesain untuk mempermudah pengelolaan dan pencatatan kehadiran siswa dan guru.
 
 ![Preview](./screenshots/hero.png)
 
-Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang bertujuan untuk mengotomatisasi proses absensi di lingkungan sekolah menggunakan teknologi QR code. Aplikasi ini dikembangkan dengan menggunakan framework CodeIgniter 4 dan didesain untuk mempermudah pengelolaan dan pencatatan kehadiran siswa dan guru.
-
-> [Instalasi & Cara Penggunaan](#cara-penggunaan)
+Proyek kami adalah implementasi pipeline CI/CD untuk aplikasi Sistem Presensi berbasis QR Code. Tujuannya adalah untuk mengotomatiskan seluruh proses, mulai dari saat kode diunggah ke GitHub, lalu secara otomatis diuji, dikemas dengan Docker, hingga di-deploy ke server. Dengan ini, kami bisa merilis pembaruan fitur dengan lebih cepat, efisien, dan andal.
 
 ## Fitur Utama
 
@@ -25,71 +20,74 @@ Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang b
 - **Generate Laporan.** Generate laporan dalam bentuk pdf.
 - **Import Banyak Siswa.** Menggunakan CSV delimiter koma (,), Contoh: [CSV](https://github.com/ikhsan3adi/absensi-sekolah-qr-code/blob/141ef728f01b14b89b43aee2c0c38680b0b60528/public/assets/file/csv_siswa_example.csv).
 
-> [!NOTE]
->
-> ## Framework dan Library Yang Digunakan
->
-> - [CodeIgniter 4](https://github.com/codeigniter4/CodeIgniter4)
-> - [Material Dashboard Bootstrap 4](https://www.creative-tim.com/product/material-dashboard-bs4)
-> - [Myth Auth Library](https://github.com/lonnieezell/myth-auth)
-> - [Endroid QR Code Generator](https://github.com/endroid/qr-code)
-> - [ZXing JS QR Code Scanner](https://github.com/zxing-js/library)
->
-> ---
->
-> - [Fonnte](https://fonnte.com/) - WhatsApp API untuk mengirim pesan notifikasi
+## Tools yang digunakan
+Tentu, berikut adalah penjelasan untuk setiap tools yang digunakan dalam diagram alur kerja (workflow diagram) tersebut:
 
-## Screenshots
+## Tools yang Digunakan
+### GitHub
+GitHub digunakan sebagai platform berbasis web yang menggunakan Git untuk kontrol versi. Dalam diagram ini, GitHub berfungsi sebagai repositori sentral untuk menyimpan, mengelola, dan melacak setiap perubahan pada kode sumber aplikasi.
+### GitHub Actions
+Github Actions digunakan untuk menjalankan pipeline CI/CD. Pipeline berfungsi sebagai proses otomasi yang menjalankan serangkaian langkah (seperti build, test, dan deploy) setiap kali ada perubahan kode di GitHub. Logo yang digunakan mirip dengan Bitbucket Pipelines atau bisa juga merepresentasikan konsep pipeline CI/CD secara umum (misalnya, Jenkins, GitHub Actions, dll.). Tujuannya adalah untuk mengintegrasikan dan mengirimkan kode secara berkelanjutan.
+### Composer
+Composer digunakan sebagai manajer dependensi (dependency manager) untuk bahasa pemrograman PHP. Dalam alur ini, pipeline menggunakan Composer untuk mengunduh dan menginstal semua pustaka (libraries) atau paket eksternal yang dibutuhkan oleh proyek aplikasi agar dapat berjalan dengan baik.
+### PHPUnit
+PHPUnit berfungsi sebagai kerangka kerja pengujian (testing framework) untuk PHP. Setelah Composer menginstal semua dependensi, PHPUnit secara otomatis menjalankan tes pada kode untuk memastikan tidak ada bug atau kesalahan dan semua fungsi berjalan sesuai harapan.
+### Docker
+Docker berfungsi sebagai platform untuk mengemas aplikasi beserta semua dependensinya (pustaka, runtime, tools) ke dalam sebuah unit standar yang disebut container. Dalam alur ini, kode dari GitHub "dibungkus" menjadi sebuah Docker image, yang memastikan aplikasi dapat berjalan secara konsisten di lingkungan mana pun.
+### Amazon Elastic Container Registry (ECR)
+ECR adalah layanan registry container Docker yang dikelola oleh Amazon Web Services (AWS). Setelah Docker image berhasil dibuat, gambar tersebut diunggah dan disimpan di ECR. Ini berfungsi sebagai tempat penyimpanan terpusat untuk semua versi image aplikasi.
+### Ansible
+Ansible digunakan sebagai alat otomasi open-source untuk manajemen konfigurasi dan penyebaran aplikasi. Dalam diagram ini, Ansible bertugas mengambil (pull) Docker image dari Amazon ECR dan secara otomatis melakukan deployment (menjalankan kontainer) ke server tujuan.
+### Amazon Elastic Compute Cloud (EC2)
+EC2 adalah layanan dari AWS yang menyediakan server virtual (virtual servers) yang dapat diskalakan di cloud. Di sinilah aplikasi yang sudah dikemas dalam kontainer Docker akan dijalankan dan diakses oleh pengguna.
+### Amazon CloudWatch
+CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini mengumpulkan data log, metrik, dan events dari sumber daya AWS seperti EC2. Tujuannya adalah untuk memantau kinerja dan kesehatan aplikasi yang sedang berjalan, serta memberikan peringatan jika terjadi masalah.
 
-### Tampilan Halaman QR Scanner
+## Pipeline Workflow DIagram
+![Workflow Diagram](./screenshots_pipeline/pipeline_workflow.png)
 
-![QR Scanner view](./screenshots/qr-scanner.jpeg)
+## Dokumentasi Screenshot Pipeline
 
-### Tampilan Absen Masuk dan Pulang
+### CI/CD Pipeline GitHub Actions
 
-![QR Scanner absen](./screenshots/absen.jpg)
+![Dokumentasi CI/CD Pipeline GitHub Actions](./screenshots_pipeline/dokumentasi_cicdpipeline_githubactions.png)
 
-> #### Notifikasi via WhatsApp
->
-> ![Notifikasi WA](./screenshots/notif-wa.png)
+### Job php-test
 
-### Tampilan Login Petugas
-
-![Login](./screenshots/login.jpeg)
-
-### Tampilan Dashboard Petugas
-
-![Dashboard](./screenshots/dashboard.png)
-
-### Tampilan CRUD Data Absen
-
-| Siswa (Dengan Data Kelas)                          |                       Guru                       |
+| php-test di GitHub Actions                          |                       Code                      |
 | -------------------------------------------------- | :----------------------------------------------: |
-| ![CRUD Absen Siswa](./screenshots/absen-siswa.png) | ![CRUD Absen Guru](./screenshots/absen-guru.png) |
+| ![php-test di GitHub Actions](./screenshots_pipeline/dokumentasi_php-test_1.png) | ![Code php-test di GitHub Actions](./screenshots_pipeline/dokumentasi_php-test_2.png) |
 
-### Tampilan Ubah Data Kehadiran
+### Job docker-build-and-push
 
-<p align="center">
-  <img src="./screenshots/ubah-kehadiran.jpeg" height="320px" style="object-fit:cover" alt="Ubah Data Kehadiran" title="Ubah Data Kehadiran">
-</p>
+| docker-build-and-push di Github Action                          |                       Code                      |
+| -------------------------------------------------- | :----------------------------------------------: |
+| ![docker-build-and-push di Github Action](./screenshots_pipeline/dokumentasi_docker-build-and-push_1.png) | ![Code docker-build-and-push di Github Action](./screenshots_pipeline/dokumentasi_docker-build-and-push_2.png) |
 
-### Tampilan CRUD Data Siswa & Guru
+### Job deploy-to-ec2
 
-| Siswa                                            |                      Guru                      |
-| ------------------------------------------------ | :--------------------------------------------: |
-| ![CRUD Data Siswa](./screenshots/data-siswa.png) | ![CRUD Data Guru](./screenshots/data-guru.png) |
+| deploy-to-ec2 di Github Action                          |                       Code                      |
+| -------------------------------------------------- | :----------------------------------------------: |
+| ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots/pipelline/dokumentasi_deploy-to-ec2_2.png) |
 
-### Tampilan CRUD Data Kelas & Jurusan
+### Dockerfile
 
-![CRUD Data Siswa](./screenshots/kelas-jurusan.png)
+![Dokumentasi Dockerfile](./screenshots_pipeline/dokumentasi_dockerfile.jpeg)
 
-### Tampilan Generate QR Code dan Generate Laporan
+### Server Running
 
-| Generate QR                                   |                Generate Laporan                |
-| --------------------------------------------- | :--------------------------------------------: |
-| ![Generate QR](./screenshots/generate-qr.png) | ![Generate Laporan](./screenshots/laporan.png) |
+![Dokumentasi Server Running](./screenshots/pipeline/dokumentasi_server_running.jpeg)
 
-## Cara Penggunaan
+## Pengembangan Fitur
+
+![Pengembangan Fitur](./screenshots_pipeline/pengembangan.jpeg)
+
+
+> ### Notifikasi via WhatsApp
+>
+> ![Notifikasi WA](./screenshots_pipeline/notifikasi_whatsap.png)
+
+## Cara Penggunaan di lokal
 
 ### Persyaratan
 
@@ -109,7 +107,10 @@ Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang b
 
 - Jika belum terdapat file `.env`, rename file `.env.example` menjadi `.env`
 
-- Buat database `db_absensi`(sesuaikan dengan yang terdapat di `.env`) di phpMyAdmin / mysql
+
+- Buat database `db_absensi` di phpMyAdmin / mysql
+
+- Ganti konfigurasi database default pada ‘.env’ dengan database di localhost phpMyAdmin
 
 - Jalankan migrasi database untuk membuat struktur tabel yang diperlukan. Ketikkan perintah berikut di terminal:
 
@@ -117,8 +118,8 @@ Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang b
   php spark migrate --all
   ```
 
-- Jalankan web server (contoh Apache, XAMPP, etc)
-- Atau gunakan `php spark serve` (atur baseURL di `.env` menjadi `http://localhost:8080/` terlebih dahulu).
+- Atur baseURL di ‘.env’ menjadi ‘http://localhost:8080/` terlebih dahulu)
+- Gunakan `php spark serve` untuk menjalankan 
 - Lalu jalankan aplikasi di browser.
 - Login menggunakan krendensial superadmin:
 
@@ -129,63 +130,7 @@ Aplikasi Web Sistem Absensi Sekolah Berbasis QR Code adalah sebuah proyek yang b
 
 - Izinkan akses kamera.
 
-### Konfigurasi
-
-> [!IMPORTANT]
->
-> - Konfigurasi file `.env` untuk mengatur base url(terutama jika melakukan hosting), koneksi database dan pengaturan lainnya sesuai dengan lingkungan pengembangan Anda.
->
-> - Untuk mengaktifkan **notifikasi WhatsApp**, pertama-tama ubah variabel `.env` berikut dari `false` menjadi `true`.
->
->   ```sh
->   # .env
->   # WA_NOTIFICATION=false # sebelum
->   WA_NOTIFICATION=true
->   ```
->
->   Lalu masukkan token WhatsApp API.
->
->   ```sh
->   # .env
->   WA_NOTIFICATION=true
->   WHATSAPP_PROVIDER=Fonnte
->   WHATSAPP_TOKEN=XXXXXXXXXXXXXXXXX # ganti dengan token anda
->   ```
->
->   _**Untuk mendapatkan token, daftar di website [fonnte](https://md.fonnte.com/new/register.php) terlebih dahulu. Lalu daftarkan device anda dan [dapatkan token Fonnte Whatsapp API](https://docs.fonnte.com/token-api-key/)**_
->
-> - Untuk mengubah konfigurasi nama sekolah, tahun ajaran logo sekolah dll sudah disediakan pengaturan (khusus untuk superadmin).
->
-> - Logo Sekolah Rekomendasi 100x100px atau 1:1 dan berformat PNG/JPG.
->
-> - Jika ingin mengubah email, username & password dari superadmin, buka file `app\Database\Migrations\2023-08-18-000004_AddSuperadmin.php` lalu ubah & sesuaikan kode berikut:
->
->   ```php
->   // INSERT INITIAL SUPERADMIN
->   $email = 'adminsuper@gmail.com';
->   $username = 'superadmin';
->   $password = 'superadmin';
->   ```
-
 ## Kesimpulan
 
 Dengan aplikasi web sistem absensi sekolah berbasis QR code ini, diharapkan proses absensi di sekolah menjadi lebih efisien dan terotomatisasi. Proyek ini dapat diadaptasi dan dikembangkan lebih lanjut sesuai dengan kebutuhan dan persyaratan sekolah Anda.
 
-Jangan lupa beri star ya...⭐⭐⭐
-
-## Contributing 🤝
-
-Kami menerima kontribusi dari komunitas terbuka untuk meningkatkan aplikasi ini. Jika Anda menemukan masalah, bug, atau memiliki saran untuk peningkatan, silakan buat issue baru dalam repositori ini atau ajukan pull request.
-
-## Donasi ❤
-
-[![Donate saweria](https://img.shields.io/badge/Donate-Saweria-red?style=for-the-badge&link=https%3A%2F%2Fsaweria.co%2Fxiboxann)](https://saweria.co/xiboxann)
-
-## Kontributor 🛠️
-
-- [@ikhsan3adi](https://www.github.com/ikhsan3adi)
-- [@reactmore](https://www.github.com/reactmore)
-- [@janglapuk](https://www.github.com/janglapuk)
-- [@nanda443](https://www.github.com/nanda443)
-- [@kevindoni](https://www.github.com/kevindoni)
-- [@pandigresik](https://github.com/pandigresik)
