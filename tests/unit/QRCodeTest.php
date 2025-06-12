@@ -1,9 +1,9 @@
 use CodeIgniter\Test\CIUnitTestCase;
 use Endroid\QrCode\Builder\Builder;
 
-class QRGeneratorTest extends CIUnitTestCase
+class QRCodeTest extends CIUnitTestCase
 {
-    public function testGenerateQrCode()
+    public function testGenerateQRCode()
     {
         $qrText = '998877';
         $result = Builder::create()
