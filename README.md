@@ -76,7 +76,7 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 
 ### Server Running
 
-![Dokumentasi Server Running](./screenshots/pipeline/dokumentasi_server_running.png)
+![Dokumentasi Server Running](./screenshots_pipeline/dokumentasi_server_running.png)
 
 ## Pengembangan Fitur
 
