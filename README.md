@@ -68,24 +68,24 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 
 | deploy-to-ec2 di Github Action                          |                       Code                      |
 | -------------------------------------------------- | :----------------------------------------------: |
-| ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots/pipelline/dokumentasi_deploy-to-ec2_2.png) |
+| ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots_pipelline/dokumentasi_deploy-to-ec2_2.png) |
 
 ### Dockerfile
 
-![Dokumentasi Dockerfile](./screenshots_pipeline/dokumentasi_dockerfile.jpeg)
+![Dokumentasi Dockerfile](./screenshots_pipeline/dokumentasi_dockerfile.png)
 
 ### Server Running
 
-![Dokumentasi Server Running](./screenshots/pipeline/dokumentasi_server_running.jpeg)
+![Dokumentasi Server Running](./screenshots/pipeline/dokumentasi_server_running.png)
 
 ## Pengembangan Fitur
 
-![Pengembangan Fitur](./screenshots_pipeline/pengembangan.jpeg)
+![Pengembangan Fitur](./screenshots_pipeline/pengembangan.png)
 
 
 > ### Notifikasi via WhatsApp
 >
-> ![Notifikasi WA](./screenshots_pipeline/notifikasi_whatsap.png)
+> ![Notifikasi WA](./screenshots_pipeline/notifikasi_whatsapp.png)
 
 ## Cara Penggunaan di lokal
 
