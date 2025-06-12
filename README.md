@@ -68,7 +68,7 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 
 | deploy-to-ec2 di Github Action                          |                       Code                      |
 | -------------------------------------------------- | :----------------------------------------------: |
-| ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots_pipelline/dokumentasi_deploy-to-ec2_2.png) |
+| ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_2.png) |
 
 ### Dockerfile
 
