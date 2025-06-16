@@ -1,3 +1,7 @@
+<?php
+
+namespace Tests\Unit;
+
 use CodeIgniter\Test\CIUnitTestCase;
 use Endroid\QrCode\Builder\Builder;
 

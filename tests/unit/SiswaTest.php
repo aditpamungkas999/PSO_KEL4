@@ -1,3 +1,7 @@
+<?php
+
+namespace Tests\Unit;
+
 use CodeIgniter\Test\CIUnitTestCase;
 use App\Models\SiswaModel;
 
@@ -7,9 +11,10 @@ class SiswaTest extends CIUnitTestCase
     {
         $model = new SiswaModel();
         $data = [
-            'nama' => 'Ahmad Test',
+            'nama_siswa' => 'Ahmad Test',
             'nis' => '998877',
-            'kelas_id' => 2,
+            'id_kelas' => 2,
+            'jenis_kelamin' => 'Laki-laki',
             'no_hp' => '08123456789',
         ];
         $this->assertTrue($model->insert($data) > 0);
