@@ -62,8 +62,8 @@ class Database extends Config
         'DSN'         => '',
         'hostname'    => '127.0.0.1',
         'username'    => 'root',
-        'password'    => '',
-        'database'    => 'absensi_test',
+        'password'    => 'root',
+        'database'    => 'db_absensi_test',
         'DBDriver'    => 'SQLite3',
         'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
         'pConnect'    => false,
