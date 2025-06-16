@@ -25,6 +25,6 @@ class SiswaTest extends CIUnitTestCase
         $model = new SiswaModel();
         $siswa = $model->where('nis', '998877')->first();
         $this->assertIsArray($siswa);
-        $this->assertEquals('Ahmad Test', $siswa['nama']);
+        $this->assertEquals('Ahmad Test', $siswa['nama_siswa']);
     }
 }

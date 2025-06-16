@@ -32,7 +32,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Support\\": "tests/_support",
             "Test\\Unit\\": "phpunit tests/unit"
         }
     },
