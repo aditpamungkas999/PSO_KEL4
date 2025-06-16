@@ -36,6 +36,9 @@
         <testdoxText outputFile="build/logs/testdox.txt"/>
         <junit outputFile="build/logs/logfile.xml"/>
     </logging>
+    <logging>
+        <log type="coverage-xml" target="build/coverage.xml"/>
+    </logging>
     <php>
         <server name="app.baseURL" value="http://example.com/"/>
         <!-- Directory containing phpunit.xml -->
