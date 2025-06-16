@@ -57,4 +57,12 @@
         <env name="database.tests.DBPrefix" value="tests_"/>
         -->
     </php>
+    <coverage>
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <report>
+            <clover outputFile="build/clover.xml"/>
+        </report>
+    </coverage>
 </phpunit>
