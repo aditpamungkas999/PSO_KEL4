@@ -49,6 +49,9 @@ jobs:
             sleep 3
           done
 
+      - name: Run Migrations
+        run: php spark migrate --all    
+
       - name: Run Unit Tests
         run: composer run-script test
 
