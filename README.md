@@ -87,6 +87,44 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 >
 > ![Notifikasi WA](./screenshots_pipeline/notifikasi_whatsapp.png)
 
+### Konfigurasi
+
+> [!IMPORTANT]
+>
+> - Konfigurasi file `.env` untuk mengatur base url(terutama jika melakukan hosting), koneksi database dan pengaturan lainnya sesuai dengan lingkungan pengembangan Anda.
+>
+> - Untuk mengaktifkan **notifikasi WhatsApp**, pertama-tama ubah variabel `.env` berikut dari `false` menjadi `true`.
+>
+>   ```sh
+>   # .env
+>   # WA_NOTIFICATION=false # sebelum
+>   WA_NOTIFICATION=true
+>   ```
+>
+>   Lalu masukkan token WhatsApp API.
+>
+>   ```sh
+>   # .env
+>   WA_NOTIFICATION=true
+>   WHATSAPP_PROVIDER=Fonnte
+>   WHATSAPP_TOKEN=XXXXXXXXXXXXXXXXX # ganti dengan token anda
+>   ```
+>
+>   _**Untuk mendapatkan token, daftar di website [fonnte](https://md.fonnte.com/new/register.php) terlebih dahulu. Lalu daftarkan device anda dan [dapatkan token Fonnte Whatsapp API](https://docs.fonnte.com/token-api-key/)**_
+>
+> - Untuk mengubah konfigurasi nama sekolah, tahun ajaran logo sekolah dll sudah disediakan pengaturan (khusus untuk superadmin).
+>
+> - Logo Sekolah Rekomendasi 100x100px atau 1:1 dan berformat PNG/JPG.
+>
+> - Jika ingin mengubah email, username & password dari superadmin, buka file `app\Database\Migrations\2023-08-18-000004_AddSuperadmin.php` lalu ubah & sesuaikan kode berikut:
+>
+>   ```php
+>   // INSERT INITIAL SUPERADMIN
+>   $email = 'adminsuper@gmail.com';
+>   $username = 'superadmin';
+>   $password = 'superadmin';
+>   ```
+
 ## Cara Penggunaan di lokal
 
 ### Persyaratan
