@@ -50,7 +50,7 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 
 ### CI/CD Pipeline GitHub Actions
 
-![Dokumentasi CI/CD Pipeline GitHub Actions](./screenshots_pipeline/dokumentasi_cicdpipeline_githubactions.png)
+![Dokumentasi CI/CD Pipeline GitHub Actions](./screenshots_pipeline/dokumentasi_cicdpipeline_githubactions.jpg)
 
 ### Job php-test
 
@@ -58,11 +58,23 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 | -------------------------------------------------- | :----------------------------------------------: |
 | ![php-test di GitHub Actions](./screenshots_pipeline/dokumentasi_php-test_1.png) | ![Code php-test di GitHub Actions](./screenshots_pipeline/dokumentasi_php-test_2.png) |
 
+Job ini bertanggung jawab untuk menjalankan pengujian pada kode PHP, seperti unit test dan integration test. Tujuannya adalah untuk memastikan bahwa setiap perubahan kode tetap sesuai dengan fungsionalitas yang diharapkan, serta mengurangi potensi bug di tahap produksi.
+
+### Job sonarqube-analysis
+
+| sonarqube-analysis di GitHub Actions                          |                       Code                      |
+| -------------------------------------------------- | :----------------------------------------------: |
+| ![sonarqube-analysis di GitHub Actions](./screenshots_pipeline/dokumentasi_sonarqube_1.png) | ![Code sonarqube-analysis di GitHub Actions](./screenshots_pipeline/dokumentasi_sonarqube_2.png) |
+
+Job ini menjalankan analisis kualitas kode menggunakan SonarQube. Proses ini membantu mendeteksi potensi permasalahan seperti technical debt, kerentanan keamanan, serta menjaga standar kualitas kode dalam jangka panjang.
+
 ### Job docker-build-and-push
 
 | docker-build-and-push di Github Action                          |                       Code                      |
 | -------------------------------------------------- | :----------------------------------------------: |
 | ![docker-build-and-push di Github Action](./screenshots_pipeline/dokumentasi_docker-build-and-push_1.png) | ![Code docker-build-and-push di Github Action](./screenshots_pipeline/dokumentasi_docker-build-and-push_2.png) |
+
+Setelah kode berhasil lolos pengujian, job ini akan membangun image Docker dari aplikasi, kemudian mendorong (push) image tersebut ke container registry. Hal ini memungkinkan image terbaru dapat digunakan untuk deployment di berbagai lingkungan.
 
 ### Job deploy-to-ec2
 
@@ -70,18 +82,61 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 | -------------------------------------------------- | :----------------------------------------------: |
 | ![deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_1.png) | ![Code deploy-to-ec2 di Github Action](./screenshots_pipeline/dokumentasi_deploy-to-ec2_2.png) |
 
+Job ini bertugas untuk melakukan deployment ke server EC2. Proses deployment dilakukan dengan menarik (pull) image terbaru dari container registry dan menjalankannya di server target, sehingga aplikasi yang berjalan selalu diperbarui dengan versi terbaru dari repository.
+
+## Dokumentasi Setup Tools
+
+### Konfigurasi Database RDS
+
+![Dokumentasi RDS](./screenshots_pipeline/dokumentasi_rds.png)
+
+Kami menggunakan Database RDS di AWS dengan engine MySQL. Bagian Connectivity & Security mengunakan Endpoint dan port 3306 agar terkoneksi dengan server.
+
+### Konfigurasi EC2 - Security
+
+![Dokumentasi RDS](./screenshots_pipeline/dokumentasi_ec2_security.png)
+
+Rules security dari cloud server diatur agar dapat menerima request dari client ke 
+port 80 - HTTP, port 443 - HTTPS, dan port 22 - SSH.
+
+### Konfigurasi EC2 - Public IP
+
+![Dokumentasi RDS](./screenshots_pipeline/dokumentasi_ec2_public.png)
+
+Kami mengatur alamat public IP menggunakan Elastic IP pada EC2 di AWS, yang dialokasikan untuk instance pso-kelompok4-server, memungkinkan akses dari internet dengan IP tetap.
+
+### Konfigurasi ECR
+
+![Dokumentasi RDS](./screenshots_pipeline/dokumentasi_ecr.png)
+
+Amazon ECR (Elastic Container Registry) menyimpan Docker image yang di build ke dalam repository kami yaitu fppsokelompok4. Akses ke repository ini diatur melalui peran EC2-ECR-Access-Role, yang memungkinkan instance EC2 untuk menarik image dari ECR.
+
 ### Dockerfile
 
 ![Dokumentasi Dockerfile](./screenshots_pipeline/dokumentasi_dockerfile.png)
+
+Gambar diatas merupakan setup dockerfile yang digunakan untuk mengatur build image docker agar container dijalankan di lingkungan yang sesuai.
+
+### SSH ke Cloud Server
+
+![Dokumentasi RDS](./screenshots_pipeline/dokumentasi_ansiblePlaybook.png)
+
+Untuk melakukan setup di server, pipeline akan mangakses SSH ke instance EC2 dengan key yang disimpan di GitHub Secret. Setelah SSH berhasil, selanjutnya akan dijalankan Ansible playbook yang berisi command line  pada gambar.
+Tujuannya adalah memastikan image docker di pull dari ECR  dan dijalankan dalam docker container milik server. Terakhir, melakukan install dependency composer sehingga aplikasi bisa berjalan dengan benar.
 
 ### Server Running
 
 ![Dokumentasi Server Running](./screenshots_pipeline/dokumentasi_server_running.png)
 
+### Monitoring
+
+![Dashboard Monitoring](./screenshots_pipeline/monitoring_dashboard.png)
+
+Amazon CloudWatch kami gunakan untuk memantau performa instance. Dashboard dibagi jadi tiga bagian utama: CPU Metrics, Disk & Network, dan Health Check, dengan update data tiap 10 detik untuk memastikan sistem tetap stabil.
+
 ## Pengembangan Fitur
 
 ![Pengembangan Fitur](./screenshots_pipeline/pengembangan.png)
-
 
 > ### Notifikasi via WhatsApp
 >
@@ -111,6 +166,7 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 >   ```
 >
 >   _**Untuk mendapatkan token, daftar di website [fonnte](https://md.fonnte.com/new/register.php) terlebih dahulu. Lalu daftarkan device anda dan [dapatkan token Fonnte Whatsapp API](https://docs.fonnte.com/token-api-key/)**_
+> ![Dokumentasi Fonnte](./screenshots_pipeline/dokumentasi_fonnte.jpg)
 >
 > - Untuk mengubah konfigurasi nama sekolah, tahun ajaran logo sekolah dll sudah disediakan pengaturan (khusus untuk superadmin).
 >
@@ -171,4 +227,5 @@ CloudWatch adalah layanan pemantauan dan observabilitas dari AWS. Layanan ini me
 ## Kesimpulan
 
 Dengan aplikasi web sistem absensi sekolah berbasis QR code ini, diharapkan proses absensi di sekolah menjadi lebih efisien dan terotomatisasi. Proyek ini dapat diadaptasi dan dikembangkan lebih lanjut sesuai dengan kebutuhan dan persyaratan sekolah Anda.
+
 
