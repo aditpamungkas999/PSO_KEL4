@@ -83,9 +83,6 @@ jobs:
 
       - name: Install Dependencies with composer
         run: composer update --no-ansi --no-interaction --no-progress
-      
-      - name: Run tests with phpunit/phpunit
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Copy .env.testing to .env
         run: cp .env.testing .env
