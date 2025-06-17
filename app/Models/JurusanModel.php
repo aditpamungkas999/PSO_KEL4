@@ -5,6 +5,9 @@ namespace App\Models;
 class JurusanModel extends BaseModel
 {
     protected $builder;
+    protected $table = 'tb_jurusan';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['id', 'jurusan'];
 
     public function __construct()
     {

@@ -81,8 +81,11 @@ jobs:
           extensions: mbstring, pdo, pdo_mysql, mysqli
           coverage: xdebug
 
-      - name: Install Dependencies
-        run: composer install --prefer-dist
+      - name: Install Dependencies with composer
+        run: composer update --no-ansi --no-interaction --no-progress
+      
+      - name: Run tests with phpunit/phpunit
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Copy .env.testing to .env
         run: cp .env.testing .env

@@ -7,6 +7,9 @@ use CodeIgniter\Model;
 class KelasModel extends BaseModel
 {
    protected $builder;
+   protected $table = 'tb_kelas';
+   protected $primaryKey = 'id_kelas';
+   protected $allowedFields = ['id', 'id_jurusan', 'kelas'];
 
    public function __construct()
    {
