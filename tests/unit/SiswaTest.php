@@ -16,6 +16,7 @@ class SiswaTest extends CIUnitTestCase
             'id_kelas' => 2,
             'jenis_kelamin' => 'Laki-laki',
             'no_hp' => '08123456789',
+            'unique_code' => uniqid('siswa_'),
         ];
         $this->assertTrue($model->insert($data) > 0);
     }
