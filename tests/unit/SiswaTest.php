@@ -1,3 +1,7 @@
+<?php
+
+namespace Tests\Unit;
+
 use CodeIgniter\Test\CIUnitTestCase;
 use App\Models\SiswaModel;
 
@@ -7,10 +11,12 @@ class SiswaTest extends CIUnitTestCase
     {
         $model = new SiswaModel();
         $data = [
-            'nama' => 'Ahmad Test',
+            'nama_siswa' => 'Ahmad Test',
             'nis' => '998877',
-            'kelas_id' => 2,
+            'id_kelas' => 2,
+            'jenis_kelamin' => 'Laki-laki',
             'no_hp' => '08123456789',
+            'unique_code' => uniqid('siswa_'),
         ];
         $this->assertTrue($model->insert($data) > 0);
     }
@@ -20,6 +26,6 @@ class SiswaTest extends CIUnitTestCase
         $model = new SiswaModel();
         $siswa = $model->where('nis', '998877')->first();
         $this->assertIsArray($siswa);
-        $this->assertEquals('Ahmad Test', $siswa['nama']);
+        $this->assertEquals('Ahmad Test', $siswa['nama_siswa']);
     }
 }
