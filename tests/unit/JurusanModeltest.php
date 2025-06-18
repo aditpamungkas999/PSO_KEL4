@@ -10,7 +10,7 @@ class JurusanModelTest extends CIUnitTestCase
 
     public function testInsertJurusan()
     {
-        $model = model(JurusanModel::class); // Menggunakan factory
+        $model = model(JurusanModel::class); 
         $namaJurusan = 'Test Jurusan ' . time();
         $data = ['jurusan' => $namaJurusan];
         
@@ -20,7 +20,7 @@ class JurusanModelTest extends CIUnitTestCase
 
     public function testFindJurusan()
     {
-        $model = model(JurusanModel::class); // Menggunakan factory
+        $model = model(JurusanModel::class); 
         $namaJurusan = 'Jurusan Find Test ' . time();
         $model->insert(['jurusan' => $namaJurusan]);
 
@@ -32,7 +32,7 @@ class JurusanModelTest extends CIUnitTestCase
 
     public function testUpdateJurusan()
     {
-        $model = model(JurusanModel::class); // Menggunakan factory
+        $model = model(JurusanModel::class); 
         $data = ['jurusan' => 'Jurusan For Update ' . time()];
         $id = $model->insert($data);
 
@@ -45,7 +45,7 @@ class JurusanModelTest extends CIUnitTestCase
     
     public function testDeleteJurusan()
     {
-        $model = model(JurusanModel::class); // Menggunakan factory
+        $model = model(JurusanModel::class); 
         $data = ['jurusan' => 'Jurusan For Delete ' . time()];
         $id = $model->insert($data);
         

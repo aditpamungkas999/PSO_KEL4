@@ -10,7 +10,7 @@ class GuruModelTest extends CIUnitTestCase
     private function getDummyData($overrides = []): array
     {
         $data = [
-            'nuptk' => (string) time() . rand(100, 999), // NUPTK unik untuk setiap tes
+            'nuptk' => (string) time() . rand(100, 999), 
             'nama_guru' => 'Guru Test',
             'jenis_kelamin' => 'L',
             'alamat' => 'Jl. Pengujian No. 123',
