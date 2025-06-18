@@ -1,3 +1,8 @@
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+   crossorigin=""></script>
+
+<script src="<?= base_url('assets/js/core/popper.min.js') ?>"></script>
 <!--   Core JS Files   -->
 <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
 <!-- Custom Plugins Sweetalert, Cookies, Etc -->
